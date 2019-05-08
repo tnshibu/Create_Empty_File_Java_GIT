@@ -1,0 +1,1 @@
+call CreateEmptyFile.bat
