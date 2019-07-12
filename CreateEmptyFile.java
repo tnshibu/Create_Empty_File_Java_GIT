@@ -103,33 +103,33 @@ public class CreateEmptyFile {
         String driveName=firstLine.substring(11);
         System.out.println("driveName ="+driveName);
         while (( line = input.readLine()) != null){
-          currentDriveLetter = line.substring(0,1);
-          line = line.substring(3); //remove the drive letter
-          line = OUTPUT_BASE_FOLDER + driveName +"\\" + line; 
-          
-          
+            currentDriveLetter = line.substring(0,1);
+            line = line.substring(3); //remove the drive letter
+            line = OUTPUT_BASE_FOLDER + driveName +"\\" + line; 
+            
+            
             String[] splitArray = line.split("\\|");
             String fileName = splitArray[0];
             String fileSize = splitArray[1];
             //System.out.println(fileName );
             //System.out.println("fileSize=    " + fileSize );
-
+            
             int slash = fileName.lastIndexOf('\\');
             String fileNameOnly = (slash == -1) ? "" : fileName.substring(slash+1);
             String dirNameOnly = (slash == -1) ? "" : fileName.substring(0, slash);
-
-
+            
+            
             int dot = fileNameOnly.lastIndexOf('.');
             String base = (dot == -1) ? fileNameOnly : fileNameOnly.substring(0, dot);
             String extension = (dot == -1) ? "" : fileNameOnly.substring(dot+1);
-
+            
             String newFileName = dirNameOnly + "\\" + base+".("+fileSize+")."+extension;
             System.out.println("newFileName=    " + newFileName );
-          
-          //System.out.println("line=    " + line );
-          currentCommonFolder = getCommonFolder(newFileName);
-          //System.out.println("currentCommonFolder=" + currentCommonFolder );
-          returnArray.add(newFileName);
+            
+            //System.out.println("line=    " + line );
+            currentCommonFolder = getCommonFolder(newFileName);
+            //System.out.println("currentCommonFolder=" + currentCommonFolder );
+            returnArray.add(newFileName);
         }
       }
       finally {
