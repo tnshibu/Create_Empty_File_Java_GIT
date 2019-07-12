@@ -29,12 +29,14 @@ public class CreateEmptyFile {
               //System.out.println("fileName=    " + fileName );
               try {
                 //System.out.println("-------------------------------------------------");
-                String fileName = fileName.replaceAll("[^\\p{L}\\p{Z}]","");
+                fileName = fileName.replaceAll("\\?","");
                 File newFile = new File(fileName);
                 File parent = newFile.getParentFile();
                 parent.mkdirs();
                 newFile.createNewFile();
+                //System.out.println("Success");
               } catch(Exception e) {
+                  System.out.println(fileName);
                   e.printStackTrace();
                   errFOS.write(("Unable to create : "+fileName+"\r\n").getBytes());
               }
@@ -112,12 +114,17 @@ public class CreateEmptyFile {
             //System.out.println(fileName );
             //System.out.println("fileSize=    " + fileSize );
 
-            int dot = fileName.lastIndexOf('.');
-            String base = (dot == -1) ? fileName : fileName.substring(0, dot);
-            String extension = (dot == -1) ? "" : fileName.substring(dot+1);
+            int slash = fileName.lastIndexOf('\\');
+            String fileNameOnly = (slash == -1) ? "" : fileName.substring(slash+1);
+            String dirNameOnly = (slash == -1) ? "" : fileName.substring(0, slash);
 
-            String newFileName = base+".("+fileSize+")."+extension;
-            //System.out.println("newFileName=    " + newFileName );
+
+            int dot = fileNameOnly.lastIndexOf('.');
+            String base = (dot == -1) ? fileNameOnly : fileNameOnly.substring(0, dot);
+            String extension = (dot == -1) ? "" : fileNameOnly.substring(dot+1);
+
+            String newFileName = dirNameOnly + "\\" + base+".("+fileSize+")."+extension;
+            System.out.println("newFileName=    " + newFileName );
           
           //System.out.println("line=    " + line );
           currentCommonFolder = getCommonFolder(newFileName);
